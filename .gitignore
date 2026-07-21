@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 data/
 .streamlit/credentials.toml
+.streamlit/secrets.toml

@@ -11,6 +11,35 @@ from universe import BENCHMARK_TICKER, get_yf_tickers
 
 st.set_page_config(page_title="NSE Breakout Watchlist", layout="wide")
 
+
+def _check_password() -> bool:
+    """Gate the app behind a password when APP_PASSWORD is configured (e.g. on Streamlit Cloud).
+
+    No secret configured (local runs) -> gate is skipped entirely.
+    """
+    try:
+        app_password = st.secrets["APP_PASSWORD"]
+    except (KeyError, FileNotFoundError):
+        return True
+    if st.session_state.get("authenticated"):
+        return True
+
+    def _on_submit():
+        if st.session_state.get("password_input") == app_password:
+            st.session_state["authenticated"] = True
+        else:
+            st.session_state["authenticated"] = False
+
+    st.title("NSE Resistance Breakout Watchlist")
+    st.text_input("Password", type="password", key="password_input", on_change=_on_submit)
+    if st.session_state.get("authenticated") is False:
+        st.error("Incorrect password")
+    return False
+
+
+if not _check_password():
+    st.stop()
+
 st.title("NSE Resistance Breakout Watchlist")
 st.caption(
     "Scans all NSE EQ-series stocks for closes above well-tested resistance zones, with "
