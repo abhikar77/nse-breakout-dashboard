@@ -119,10 +119,10 @@ with st.sidebar:
         "Must include signals", ALL_SIGNALS,
         help="Stock must show every selected signal. Leave empty for no constraint.",
     )
-    min_signals = st.slider("Minimum signal count", 2, 7, 2)
-    min_score = st.slider("Minimum score", 0.0, 1.0, 0.35, 0.05)
-    min_upside = st.slider("Minimum upside to lower target (%)", 0.0, 10.0, 0.0, 0.5)
-    max_risk = st.slider("Maximum risk to stop (%)", 3.0, 20.0, 20.0, 0.5)
+    min_signals = st.slider("Minimum signal count", 2, 7, 3)
+    min_score = st.slider("Minimum score", 0.0, 1.0, 0.55, 0.05)
+    min_upside = st.slider("Minimum upside to lower target (%)", 0.0, 10.0, 5.0, 0.5)
+    max_risk = st.slider("Maximum risk to stop (%)", 3.0, 20.0, 10.0, 0.5)
     hide_overbought = st.checkbox("Hide overbought (RSI > 75)", value=False)
 
 with st.expander("What each signal means"):
